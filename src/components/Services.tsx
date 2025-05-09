@@ -10,39 +10,28 @@ interface Service {
 
 const Services = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const animatedElements = useRef<NodeListOf<Element> | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (!sectionRef.current) return;
-    animatedElements.current = sectionRef.current.querySelectorAll('.animate-on-scroll');
-
+    
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          setTimeout(() => {
-            entry.target.classList.add('animate-slide-up');
-          }, index * 100);
-          observer.unobserve(entry.target);
-        }
-      });
+      // Only set visible once and never back to false
+      if (entries[0].isIntersecting && !isVisible) {
+        setIsVisible(true);
+      }
     }, {
       threshold: 0.1
     });
 
-    animatedElements.current.forEach(el => {
-      observer.observe(el);
-    });
+    observer.observe(sectionRef.current);
 
     return () => {
-      if (animatedElements.current) {
-        animatedElements.current.forEach(el => {
-          observer.unobserve(el);
-        });
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
       }
     };
-  }, []);
+  }, [isVisible]); // Include isVisible in the dependency array
 
   const services: Service[] = [
     {
@@ -79,14 +68,14 @@ const Services = () => {
       </div>
 
       <div className="container mx-auto relative z-10">
-        <div className={`transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="transition-all duration-700 transform opacity-100 translate-y-0">
           <h2 className="section-title">Services</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mt-12">
             {services.map((service, index) => (
               <div 
                 key={index} 
-                className="glass-card p-6 animate-on-scroll opacity-0 transition-all duration-700 border border-white/10 hover:border-portfolio-accent/50 backdrop-blur-md group"
+                className={`glass-card p-6 transition-all duration-700 border border-white/10 hover:border-portfolio-accent/50 backdrop-blur-md group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="mb-5 relative">

@@ -4,37 +4,28 @@ import { FileText } from 'lucide-react';
 
 const About = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const animatedElements = useRef<NodeListOf<Element> | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (!sectionRef.current) return;
-    animatedElements.current = sectionRef.current.querySelectorAll('.animate-on-scroll');
-
+    
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          entry.target.classList.add('animate-fade-in');
-          observer.unobserve(entry.target);
-        }
-      });
+      // Only set visible once and never back to false
+      if (entries[0].isIntersecting && !isVisible) {
+        setIsVisible(true);
+      }
     }, {
       threshold: 0.1
     });
 
-    animatedElements.current.forEach(el => {
-      observer.observe(el);
-    });
+    observer.observe(sectionRef.current);
 
     return () => {
-      if (animatedElements.current) {
-        animatedElements.current.forEach(el => {
-          observer.unobserve(el);
-        });
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
       }
     };
-  }, []);
+  }, [isVisible]); // Include isVisible in the dependency array
 
   return (
     <section id="about" ref={sectionRef} className="section-padding bg-portfolio-dark relative overflow-hidden">
@@ -47,13 +38,11 @@ const About = () => {
       </div>
 
       <div className="container mx-auto relative z-10">
-        <div 
-          className={`transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
+        <div className="transition-all duration-700 transform opacity-100 translate-y-0">
           <h2 className="section-title">About Me</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-12">
-            <div className="animate-on-scroll opacity-0" style={{ transitionDelay: '200ms' }}>
+            <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '200ms' }}>
               <div className="h-full w-full overflow-hidden rounded-xl relative group">
                 <div className="aspect-square bg-white/5 backdrop-blur-sm rounded-xl relative overflow-hidden border border-white/10 hover:border-portfolio-accent/50 transition-all duration-500">
                   {/* Modern profile picture container */}
@@ -71,7 +60,7 @@ const About = () => {
               </div>
             </div>
 
-            <div className="animate-on-scroll opacity-0" style={{ transitionDelay: '400ms' }}>
+            <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '400ms' }}>
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
                 I'm a <span className="relative">
                   <span className="text-portfolio-accent">Computer Science</span>
