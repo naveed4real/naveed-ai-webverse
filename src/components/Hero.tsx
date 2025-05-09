@@ -3,11 +3,7 @@ import { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  const [isVisible, setIsVisible] = useState(true); // Set to true by default to avoid popping effect
 
   return (
     <section id="home" className="min-h-screen relative flex flex-col items-center justify-center pt-20 px-4 md:px-8 overflow-hidden">
@@ -23,25 +19,19 @@ const Hero = () => {
 
       <div className="container mx-auto z-10 flex flex-col items-center text-center relative">
         {/* Animated introduction label */}
-        <div 
-          className={`mb-4 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
+        <div className="mb-4 opacity-100 translate-y-0">
           <span className="inline-block py-1.5 px-4 rounded-full border border-portfolio-accent/30 text-portfolio-accent text-sm mb-6 backdrop-blur-sm bg-black/20">
             Hello, I am
           </span>
         </div>
 
         {/* Modern name display with gradient */}
-        <h1 
-          className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-6 transition-all duration-1000 delay-300 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 opacity-100 translate-y-0">
           <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">Naveed Ahmed</span>
         </h1>
 
         {/* Role with modern styling */}
-        <h2 
-          className={`text-xl md:text-2xl text-gray-300 mb-8 transition-all duration-1000 delay-500 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
+        <h2 className="text-xl md:text-2xl text-gray-300 mb-8 opacity-100 translate-y-0">
           <span className="relative">
             Web Designer & Developer
             <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-portfolio-accent to-transparent"></span>
@@ -49,16 +39,12 @@ const Hero = () => {
         </h2>
 
         {/* Tagline with better styling */}
-        <p 
-          className={`max-w-xl text-gray-400 mb-10 transition-all duration-1000 delay-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
+        <p className="max-w-xl text-gray-400 mb-10 opacity-100 translate-y-0">
           Crafting Smart Web Solutions with AI-Enhanced Design
         </p>
 
         {/* Modern call-to-action buttons */}
-        <div 
-          className={`flex flex-wrap gap-4 justify-center transition-all duration-1000 delay-900 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
+        <div className="flex flex-wrap gap-4 justify-center opacity-100 translate-y-0">
           <a 
             href="#contact" 
             className="px-6 py-3 bg-portfolio-accent hover:bg-portfolio-accent/90 text-white rounded-md transition-all duration-300 shadow-lg shadow-portfolio-accent/20 flex items-center gap-2"
@@ -80,10 +66,10 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll down indicator with improved styling */}
+      {/* Updated scroll down indicator without popping animation */}
       <a 
         href="#about"
-        className={`absolute bottom-10 animate-bounce transition-all duration-1000 delay-1200 transform z-10 flex flex-col items-center gap-2 ${isVisible ? 'opacity-70 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className="absolute bottom-10 z-10 flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity"
         aria-label="Scroll down"
       >
         <span className="text-xs text-gray-400">Scroll Down</span>
