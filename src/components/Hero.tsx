@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
@@ -44,7 +44,7 @@ const Hero = () => {
         </p>
 
         {/* Modern call-to-action buttons */}
-        <div className="flex flex-wrap gap-4 justify-center opacity-100 translate-y-0">
+        <div className="flex flex-wrap gap-4 justify-center opacity-100 translate-y-0 mb-16">
           <a 
             href="#contact" 
             className="px-6 py-3 bg-portfolio-accent hover:bg-portfolio-accent/90 text-white rounded-md transition-all duration-300 shadow-lg shadow-portfolio-accent/20 flex items-center gap-2"
@@ -59,22 +59,22 @@ const Hero = () => {
             View Projects
           </a>
         </div>
+        
+        {/* Centered scroll down indicator with continuous bounce */}
+        <a 
+          href="#about"
+          className="flex flex-col items-center gap-3 z-10 opacity-80 hover:opacity-100 transition-opacity mb-8 animate-bounce"
+          aria-label="Scroll down"
+        >
+          <span className="text-xs text-gray-400">Scroll Down</span>
+          <ArrowDown className="text-portfolio-accent hover:text-white transition-colors duration-300" />
+        </a>
 
         {/* Tech pattern decoration */}
         <div className="absolute -bottom-10 left-0 right-0 h-20 opacity-20">
           <div className="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzBoLTYgdi02aDZ2NnptMCAxMmgtNnYtNmg2djZ6bTEyLTEyaC02di02aDZ2NnptMCAxMmgtNnYtNmg2djZ6bTEyLTEyaC02di02aDZ2NnptMCAxMmgtNnYtNmg2djZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] bg-repeat"></div>
         </div>
       </div>
-
-      {/* Updated scroll down indicator without popping animation */}
-      <a 
-        href="#about"
-        className="absolute bottom-10 z-10 flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity"
-        aria-label="Scroll down"
-      >
-        <span className="text-xs text-gray-400">Scroll Down</span>
-        <ArrowDown className="text-portfolio-accent hover:text-white transition-colors duration-300" />
-      </a>
     </section>
   );
 };
