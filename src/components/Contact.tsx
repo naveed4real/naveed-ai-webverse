@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { Mail, Phone, Github, Linkedin, Send } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
@@ -90,8 +89,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email</p>
-                    <a href="mailto:naveed@example.com" className="hover:text-portfolio-accent transition-colors duration-300">
-                      naveed@example.com
+                    <a href="mailto:naveedahmad657@gmail.com" className="hover:text-portfolio-accent transition-colors duration-300">
+                      naveedahmad657@gmail.com
                     </a>
                   </div>
                 </div>
@@ -102,8 +101,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Phone</p>
-                    <a href="tel:+923001234567" className="hover:text-portfolio-accent transition-colors duration-300">
-                      +92 300 1234567
+                    <a href="tel:+923348737415" className="hover:text-portfolio-accent transition-colors duration-300">
+                      +92 334 8737415
                     </a>
                   </div>
                 </div>
