@@ -53,7 +53,7 @@ const About = () => {
                       <img 
                         src="/lovable-uploads/17e68f15-7635-4b43-8bf9-f93b30a0501e.png"
                         alt="Profile Photo"
-                        className="object-cover w-full h-full"
+                        className="object-contain w-full h-full"
                       />
                     </AspectRatio>
                     
