@@ -50,11 +50,13 @@ const About = () => {
                 <CardContent className="p-0">
                   <div className="relative rounded-xl overflow-hidden border border-white/10 bg-black/20 backdrop-blur-sm shadow-xl transition-all duration-500 hover:border-portfolio-accent/50 hover:shadow-portfolio-accent/10">
                     <AspectRatio ratio={1} className="w-full">
-                      <img 
-                        src="/lovable-uploads/17e68f15-7635-4b43-8bf9-f93b30a0501e.png"
-                        alt="Profile Photo"
-                        className="object-contain w-full h-full"
-                      />
+                      <div className="w-full h-full flex items-center justify-center">
+                        <img 
+                          src="/lovable-uploads/17e68f15-7635-4b43-8bf9-f93b30a0501e.png"
+                          alt="Profile Photo"
+                          className="object-contain max-h-full max-w-full"
+                        />
+                      </div>
                     </AspectRatio>
                     
                     {/* Decorative overlay effects */}
