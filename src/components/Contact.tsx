@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { Mail, Phone, Github, Linkedin, Send } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
@@ -30,11 +29,10 @@ const Contact = () => {
     
     if (!formRef.current) return;
     
-    // EmailJS parameters
-    // Note: You need to replace these with your actual EmailJS service ID, template ID, and public key
-    const serviceId = 'YOUR_SERVICE_ID';
-    const templateId = 'YOUR_TEMPLATE_ID';
-    const publicKey = 'YOUR_PUBLIC_KEY';
+    // EmailJS parameters with the provided credentials
+    const serviceId = 'service_25pnn0p';
+    const templateId = 'template_a0rkd8i';
+    const publicKey = 'LczSNS9EbRR5E5aI-';
     
     emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
       .then((result) => {
