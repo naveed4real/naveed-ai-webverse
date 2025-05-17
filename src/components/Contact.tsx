@@ -156,11 +156,11 @@ const Contact = () => {
               <h3 className="text-2xl font-bold mb-6">Send Message</h3>
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 backdrop-blur-sm bg-white/5 p-6 rounded-xl border border-white/10">
                 <div className="w-full">
-                  <label htmlFor="name" className="block text-sm mb-2">Name</label>
+                  <label htmlFor="from_name" className="block text-sm mb-2">Name</label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
+                    id="from_name"
+                    name="from_name"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -170,11 +170,11 @@ const Contact = () => {
                 </div>
                 
                 <div className="w-full">
-                  <label htmlFor="email" className="block text-sm mb-2">Email</label>
+                  <label htmlFor="reply_to" className="block text-sm mb-2">Email</label>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
+                    id="reply_to"
+                    name="reply_to"
                     value={formData.email}
                     onChange={handleChange}
                     required
