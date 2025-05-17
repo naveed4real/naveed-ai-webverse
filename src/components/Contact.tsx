@@ -29,9 +29,9 @@ const Contact = () => {
     
     if (!formRef.current) return;
     
-    // EmailJS parameters with the provided credentials
+    // EmailJS parameters with the updated template ID
     const serviceId = 'service_25pnn0p';
-    const templateId = 'template_a0rkd8i';
+    const templateId = 'template_hz291vb';
     const publicKey = 'LczSNS9EbRR5E5aI-';
     
     emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
