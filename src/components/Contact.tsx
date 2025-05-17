@@ -1,9 +1,12 @@
+
 import { useState, useRef, useEffect } from 'react';
 import { Mail, Phone, Github, Linkedin, Send } from 'lucide-react';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,15 +28,33 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
+    if (!formRef.current) return;
+    
+    // EmailJS parameters
+    // Note: You need to replace these with your actual EmailJS service ID, template ID, and public key
+    const serviceId = 'YOUR_SERVICE_ID';
+    const templateId = 'YOUR_TEMPLATE_ID';
+    const publicKey = 'YOUR_PUBLIC_KEY';
+    
+    emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
+      .then((result) => {
+        console.log('Email sent successfully:', result.text);
+        toast({
+          title: "Message sent!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        });
+        setFormData({ name: '', email: '', message: '' });
+        setIsSubmitting(false);
+      })
+      .catch((error) => {
+        console.error('Email sending failed:', error.text);
+        toast({
+          title: "Message failed to send",
+          description: "There was an error sending your message. Please try again.",
+          variant: "destructive"
+        });
+        setIsSubmitting(false);
       });
-      setFormData({ name: '', email: '', message: '' });
-      setIsSubmitting(false);
-    }, 1500);
   };
 
   useEffect(() => {
@@ -135,7 +156,7 @@ const Contact = () => {
             
             <div className={`transition-all duration-700 delay-400 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <h3 className="text-2xl font-bold mb-6">Send Message</h3>
-              <form onSubmit={handleSubmit} className="space-y-6 backdrop-blur-sm bg-white/5 p-6 rounded-xl border border-white/10">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 backdrop-blur-sm bg-white/5 p-6 rounded-xl border border-white/10">
                 <div className="w-full">
                   <label htmlFor="name" className="block text-sm mb-2">Name</label>
                   <input
