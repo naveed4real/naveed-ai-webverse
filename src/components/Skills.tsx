@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { Code, Layout, Brain } from 'lucide-react';
+import { Code, Layout, Brain, Terminal, Laptop } from 'lucide-react';
 
 interface Skill {
   name: string;
@@ -20,7 +20,8 @@ const Skills = () => {
     { name: "React", proficiency: 75, category: "Frontend" },
     { name: "UI/UX Design", proficiency: 70, category: "Design" },
     { name: "AI Tools (Cursor, Trae)", proficiency: 85, category: "AI" },
-    { name: "VS Code", proficiency: 90, category: "Tools" },
+    { name: "Python", proficiency: 82, category: "Backend" },
+    { name: "TypeScript", proficiency: 78, category: "Frontend" },
     { name: "Responsive Design", proficiency: 85, category: "Frontend" }
   ];
 
@@ -131,10 +132,10 @@ const Skills = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-portfolio-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                   <div className="relative z-10">
                     <h4 className="text-xl font-semibold mb-2 flex items-center">
-                      <Layout className="mr-2 text-portfolio-accent" size={18} />
-                      Responsive Design
+                      <Terminal className="mr-2 text-portfolio-accent" size={18} />
+                      Backend Development
                     </h4>
-                    <p className="text-gray-300">Creating websites that look great on all devices, from mobile to desktop.</p>
+                    <p className="text-gray-300">Creating robust server-side applications and APIs using Python and other technologies.</p>
                   </div>
                 </div>
               </div>
