@@ -51,7 +51,7 @@ const About = () => {
                   <div className="relative rounded-xl overflow-hidden border border-white/10 bg-black/20 backdrop-blur-sm shadow-xl transition-all duration-500 hover:border-portfolio-accent/50 hover:shadow-portfolio-accent/10">
                     <AspectRatio ratio={1} className="w-full">
                       <img 
-                        src="https://i.postimg.cc/CKh1BWnD/pp.jpg"
+                        src="/lovable-uploads/77331fec-9b53-42c4-b975-b7d732b2c815.png"
                         alt="Profile Photo"
                         className="object-cover w-full h-full"
                       />
