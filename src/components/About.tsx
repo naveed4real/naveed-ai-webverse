@@ -99,7 +99,7 @@ const About = () => {
               
               <div className="flex flex-wrap gap-4">
                 <a 
-                  href="/resume.pdf" 
+                  href="https://drive.google.com/file/d/16a_--yEtAJ-TQu1s380YlYkaQRL_Vo_R/view?usp=sharing" 
                   className="px-6 py-3 bg-portfolio-accent hover:bg-portfolio-accent/80 text-white rounded-md transition-all duration-300 shadow-lg shadow-portfolio-accent/20"
                   target="_blank"
                   rel="noopener noreferrer"
