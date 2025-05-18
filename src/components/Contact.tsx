@@ -7,8 +7,8 @@ const Contact = () => {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    from_name: '',
+    reply_to: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,7 +41,7 @@ const Contact = () => {
           title: "Message sent!",
           description: "Thanks for reaching out. I'll get back to you soon.",
         });
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ from_name: '', reply_to: '', message: '' });
         setIsSubmitting(false);
       })
       .catch((error) => {
@@ -161,7 +161,7 @@ const Contact = () => {
                     type="text"
                     id="from_name"
                     name="from_name"
-                    value={formData.name}
+                    value={formData.from_name}
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-portfolio-accent focus:ring-1 focus:ring-portfolio-accent transition-colors duration-300 text-white placeholder-gray-400"
@@ -175,7 +175,7 @@ const Contact = () => {
                     type="email"
                     id="reply_to"
                     name="reply_to"
-                    value={formData.email}
+                    value={formData.reply_to}
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-md focus:outline-none focus:border-portfolio-accent focus:ring-1 focus:ring-portfolio-accent transition-colors duration-300 text-white placeholder-gray-400"
