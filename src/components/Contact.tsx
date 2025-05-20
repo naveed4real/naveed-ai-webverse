@@ -29,17 +29,19 @@ const Contact = () => {
     
     if (!formRef.current) return;
     
-    // EmailJS parameters with receiver email explicitly set to your email
+    // EmailJS parameters
     const serviceId = 'service_25pnn0p';
     const templateId = 'template_hz291vb';
     const publicKey = 'LczSNS9EbRR5E5aI-';
     
-    // Create a template parameter object that explicitly sets the destination email
+    // Create template parameters that properly identify the sender
+    // This ensures that when you receive the email, you'll see who sent it
     const templateParams = {
       from_name: formData.from_name,
-      reply_to: formData.reply_to,  // This is the sender's email
+      from_email: formData.reply_to, // This will show as the sender's email
+      reply_to: formData.reply_to,   // This allows you to reply directly to them
       message: formData.message,
-      to_email: 'naveedahmad657@gmail.com'  // This ensures your email is the destination
+      to_name: 'Naveed Ahmad', // Your name as the recipient
     };
     
     // Call EmailJS with the explicit parameters
