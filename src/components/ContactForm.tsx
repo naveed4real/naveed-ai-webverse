@@ -39,16 +39,18 @@ const ContactForm = () => {
     const templateId = 'template_hz291vb';
     const publicKey = 'LczSNS9EbRR5E5aI-';
     
-    // Create template parameters that properly identify the sender
+    // IMPORTANT: The to_email parameter must be explicitly set to your email
+    // The from_email will be set to the sender's email from the form
     const templateParams = {
-      from_name: formData.from_name,
-      from_email: formData.reply_to, // This will show as the sender's email
-      reply_to: formData.reply_to,   // This allows you to reply directly to them
-      message: formData.message,
       to_name: 'Naveed Ahmad', // Your name as the recipient
+      to_email: 'naveedahmad657@gmail.com', // Your email address (recipient)
+      from_name: formData.from_name, // Sender's name from the form
+      from_email: formData.reply_to, // Sender's email from the form
+      message: formData.message, // Message content
+      reply_to: formData.reply_to, // Reply-to address (sender's email)
     };
     
-    // Call EmailJS with the explicit parameters
+    // Send the email with the correct parameters
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((result) => {
         console.log('Email sent successfully:', result.text);
