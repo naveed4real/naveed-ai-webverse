@@ -29,12 +29,21 @@ const Contact = () => {
     
     if (!formRef.current) return;
     
-    // EmailJS parameters with the updated template ID
+    // EmailJS parameters with receiver email explicitly set to your email
     const serviceId = 'service_25pnn0p';
     const templateId = 'template_hz291vb';
     const publicKey = 'LczSNS9EbRR5E5aI-';
     
-    emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
+    // Create a template parameter object that explicitly sets the destination email
+    const templateParams = {
+      from_name: formData.from_name,
+      reply_to: formData.reply_to,  // This is the sender's email
+      message: formData.message,
+      to_email: 'naveedahmad657@gmail.com'  // This ensures your email is the destination
+    };
+    
+    // Call EmailJS with the explicit parameters
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((result) => {
         console.log('Email sent successfully:', result.text);
         toast({
