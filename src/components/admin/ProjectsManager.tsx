@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Edit, Trash2, ExternalLink, Github } from 'lucide-react';
+import { Plus, Edit, Trash2, ExternalLink, Github, Linkedin } from 'lucide-react';
 
 interface Project {
   id: string;
@@ -19,6 +19,7 @@ interface Project {
   image_url: string;
   demo_url: string;
   repo_url: string;
+  linkedin_url: string;
   technologies: string[];
   category: string;
   featured: boolean;
@@ -43,6 +44,7 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
     image_url: '',
     demo_url: '',
     repo_url: '',
+    linkedin_url: '',
     technologies: '',
     category: '',
     featured: false,
@@ -125,6 +127,7 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
       image_url: project.image_url || '',
       demo_url: project.demo_url || '',
       repo_url: project.repo_url || '',
+      linkedin_url: project.linkedin_url || '',
       technologies: project.technologies.join(', '),
       category: project.category || '',
       featured: project.featured,
@@ -163,6 +166,7 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
       image_url: '',
       demo_url: '',
       repo_url: '',
+      linkedin_url: '',
       technologies: '',
       category: '',
       featured: false,
@@ -172,51 +176,52 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
   };
 
   if (loading && projects.length === 0) {
-    return <div>Loading projects...</div>;
+    return <div className="text-white">Loading projects...</div>;
   }
 
   return (
-    <Card>
+    <Card className="bg-portfolio-dark border-white/10">
       <CardHeader>
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle>Projects Management</CardTitle>
-            <CardDescription>Manage your portfolio projects</CardDescription>
+            <CardTitle className="text-white">Projects Management</CardTitle>
+            <CardDescription className="text-gray-300">Manage your portfolio projects</CardDescription>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button onClick={resetForm}>
+              <Button onClick={resetForm} className="bg-portfolio-accent hover:bg-portfolio-accent/80">
                 <Plus className="w-4 h-4 mr-2" />
                 Add Project
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-2xl bg-portfolio-dark border-white/10">
               <DialogHeader>
-                <DialogTitle>
+                <DialogTitle className="text-white">
                   {editingProject ? 'Edit Project' : 'Add New Project'}
                 </DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="text-gray-300">
                   Fill in the project details below
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="title">Title</Label>
+                    <Label htmlFor="title" className="text-white">Title</Label>
                     <Input
                       id="title"
                       value={formData.title}
                       onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                       required
+                      className="bg-portfolio-dark border-white/20 text-white"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="category">Category</Label>
+                    <Label htmlFor="category" className="text-white">Category</Label>
                     <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-portfolio-dark border-white/20 text-white">
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-portfolio-dark border-white/20">
                         <SelectItem value="web">Web</SelectItem>
                         <SelectItem value="design">Design</SelectItem>
                         <SelectItem value="ai">AI</SelectItem>
@@ -226,47 +231,62 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description" className="text-white">Description</Label>
                   <Textarea
                     id="description"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     rows={3}
+                    className="bg-portfolio-dark border-white/20 text-white"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="demo_url">Demo URL</Label>
+                    <Label htmlFor="demo_url" className="text-white">Demo URL</Label>
                     <Input
                       id="demo_url"
                       value={formData.demo_url}
                       onChange={(e) => setFormData({ ...formData, demo_url: e.target.value })}
+                      className="bg-portfolio-dark border-white/20 text-white"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="repo_url">Repository URL</Label>
+                    <Label htmlFor="repo_url" className="text-white">Repository URL</Label>
                     <Input
                       id="repo_url"
                       value={formData.repo_url}
                       onChange={(e) => setFormData({ ...formData, repo_url: e.target.value })}
+                      className="bg-portfolio-dark border-white/20 text-white"
                     />
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="image_url">Image URL</Label>
+                  <Label htmlFor="linkedin_url" className="text-white">LinkedIn Profile URL</Label>
+                  <Input
+                    id="linkedin_url"
+                    value={formData.linkedin_url}
+                    onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
+                    placeholder="https://linkedin.com/in/yourprofile"
+                    className="bg-portfolio-dark border-white/20 text-white"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="image_url" className="text-white">Image URL</Label>
                   <Input
                     id="image_url"
                     value={formData.image_url}
                     onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                    className="bg-portfolio-dark border-white/20 text-white"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="technologies">Technologies (comma-separated)</Label>
+                  <Label htmlFor="technologies" className="text-white">Technologies (comma-separated)</Label>
                   <Input
                     id="technologies"
                     value={formData.technologies}
                     onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
                     placeholder="React, TypeScript, Node.js"
+                    className="bg-portfolio-dark border-white/20 text-white"
                   />
                 </div>
                 <div className="flex items-center space-x-2">
@@ -275,10 +295,11 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
                     id="featured"
                     checked={formData.featured}
                     onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                    className="accent-portfolio-accent"
                   />
-                  <Label htmlFor="featured">Featured Project</Label>
+                  <Label htmlFor="featured" className="text-white">Featured Project</Label>
                 </div>
-                <Button type="submit" disabled={loading}>
+                <Button type="submit" disabled={loading} className="bg-portfolio-accent hover:bg-portfolio-accent/80">
                   {loading ? 'Saving...' : (editingProject ? 'Update' : 'Create')}
                 </Button>
               </form>
@@ -289,45 +310,52 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
       <CardContent>
         <div className="grid gap-4">
           {projects.map((project) => (
-            <div key={project.id} className="border rounded-lg p-4 space-y-2">
+            <div key={project.id} className="border border-white/10 rounded-lg p-4 space-y-2 bg-portfolio-dark">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  <h3 className="font-semibold">{project.title}</h3>
-                  <p className="text-sm text-gray-600">{project.description}</p>
+                  <h3 className="font-semibold text-white">{project.title}</h3>
+                  <p className="text-sm text-gray-300">{project.description}</p>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {project.technologies.map((tech, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
+                      <Badge key={index} variant="secondary" className="text-xs bg-portfolio-accent/20 text-portfolio-accent border-portfolio-accent/30">
                         {tech}
                       </Badge>
                     ))}
                   </div>
                   <div className="flex items-center gap-2 mt-2">
-                    <Badge variant={project.featured ? "default" : "outline"}>
+                    <Badge variant={project.featured ? "default" : "outline"} className={project.featured ? "bg-portfolio-accent text-white" : "border-white/20 text-white"}>
                       {project.featured ? "Featured" : "Regular"}
                     </Badge>
-                    <Badge variant="outline">{project.category}</Badge>
-                    <Badge variant="outline">{project.status}</Badge>
+                    <Badge variant="outline" className="border-white/20 text-white">{project.category}</Badge>
+                    <Badge variant="outline" className="border-white/20 text-white">{project.status}</Badge>
                   </div>
                 </div>
                 <div className="flex gap-2">
                   {project.demo_url && (
-                    <Button size="sm" variant="outline" asChild>
+                    <Button size="sm" variant="outline" asChild className="border-white/20 text-white hover:bg-white/10">
                       <a href={project.demo_url} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="w-4 h-4" />
                       </a>
                     </Button>
                   )}
                   {project.repo_url && (
-                    <Button size="sm" variant="outline" asChild>
+                    <Button size="sm" variant="outline" asChild className="border-white/20 text-white hover:bg-white/10">
                       <a href={project.repo_url} target="_blank" rel="noopener noreferrer">
                         <Github className="w-4 h-4" />
                       </a>
                     </Button>
                   )}
-                  <Button size="sm" variant="outline" onClick={() => handleEdit(project)}>
+                  {project.linkedin_url && (
+                    <Button size="sm" variant="outline" asChild className="border-white/20 text-white hover:bg-white/10">
+                      <a href={project.linkedin_url} target="_blank" rel="noopener noreferrer">
+                        <Linkedin className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  )}
+                  <Button size="sm" variant="outline" onClick={() => handleEdit(project)} className="border-white/20 text-white hover:bg-white/10">
                     <Edit className="w-4 h-4" />
                   </Button>
-                  <Button size="sm" variant="destructive" onClick={() => handleDelete(project.id)}>
+                  <Button size="sm" variant="destructive" onClick={() => handleDelete(project.id)} className="bg-red-600 hover:bg-red-700">
                     <Trash2 className="w-4 h-4" />
                   </Button>
                 </div>

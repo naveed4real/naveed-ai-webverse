@@ -35,20 +35,52 @@ const AdminDashboard = ({ user }: AdminDashboardProps) => {
 
   const checkAdminStatus = async () => {
     try {
-      const { data, error } = await supabase
+      // First check if profile exists, if not create it
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', user.id)
         .single();
 
-      if (error) {
-        console.error('Error checking admin status:', error);
-        return;
-      }
+      if (profileError && profileError.code === 'PGRST116') {
+        // Profile doesn't exist, create it with admin role
+        const { error: insertError } = await supabase
+          .from('profiles')
+          .insert([{
+            id: user.id,
+            email: user.email,
+            full_name: user.email,
+            role: 'admin'
+          }]);
 
-      setIsAdmin(data?.role === 'admin');
+        if (insertError) {
+          console.error('Error creating admin profile:', insertError);
+          toast({
+            title: "Error",
+            description: "Failed to create admin profile. Please contact support.",
+            variant: "destructive"
+          });
+          return;
+        }
+        setIsAdmin(true);
+      } else if (profileError) {
+        console.error('Error checking admin status:', profileError);
+        toast({
+          title: "Error",
+          description: "Failed to verify admin status.",
+          variant: "destructive"
+        });
+        return;
+      } else {
+        setIsAdmin(profile?.role === 'admin');
+      }
     } catch (error) {
       console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred.",
+        variant: "destructive"
+      });
     } finally {
       setLoading(false);
     }
@@ -96,13 +128,13 @@ const AdminDashboard = ({ user }: AdminDashboardProps) => {
   if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-portfolio-dark">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md bg-portfolio-dark border-white/10">
           <CardHeader>
-            <CardTitle>Access Denied</CardTitle>
-            <CardDescription>You don't have admin privileges.</CardDescription>
+            <CardTitle className="text-white">Access Denied</CardTitle>
+            <CardDescription className="text-gray-300">You don't have admin privileges.</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={handleSignOut} className="w-full">
+            <Button onClick={handleSignOut} className="w-full bg-portfolio-accent hover:bg-portfolio-accent/80">
               Sign Out
             </Button>
           </CardContent>
@@ -115,10 +147,12 @@ const AdminDashboard = ({ user }: AdminDashboardProps) => {
     <div className="min-h-screen bg-portfolio-dark text-white">
       <div className="container mx-auto p-6">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold text-white">
+            <span className="text-portfolio-accent">A</span>dmin Dashboard
+          </h1>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-300">Welcome, {user.email}</span>
-            <Button onClick={handleSignOut} variant="outline" size="sm">
+            <Button onClick={handleSignOut} variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
               <LogOut className="w-4 h-4 mr-2" />
               Sign Out
             </Button>
@@ -127,52 +161,52 @@ const AdminDashboard = ({ user }: AdminDashboardProps) => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-portfolio-dark border-white/10">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Projects</CardTitle>
-              <FolderOpen className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-white">Projects</CardTitle>
+              <FolderOpen className="h-4 w-4 text-portfolio-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.projects}</div>
+              <div className="text-2xl font-bold text-white">{stats.projects}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-portfolio-dark border-white/10">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Skills</CardTitle>
-              <Code className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-white">Skills</CardTitle>
+              <Code className="h-4 w-4 text-portfolio-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.skills}</div>
+              <div className="text-2xl font-bold text-white">{stats.skills}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-portfolio-dark border-white/10">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Services</CardTitle>
-              <Briefcase className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-white">Services</CardTitle>
+              <Briefcase className="h-4 w-4 text-portfolio-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.services}</div>
+              <div className="text-2xl font-bold text-white">{stats.services}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-portfolio-dark border-white/10">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Messages</CardTitle>
-              <Mail className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-white">Messages</CardTitle>
+              <Mail className="h-4 w-4 text-portfolio-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.messages}</div>
+              <div className="text-2xl font-bold text-white">{stats.messages}</div>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content */}
         <Tabs defaultValue="projects" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="skills">Skills</TabsTrigger>
-            <TabsTrigger value="services">Services</TabsTrigger>
-            <TabsTrigger value="messages">Messages</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-5 bg-portfolio-dark border border-white/10">
+            <TabsTrigger value="projects" className="text-white data-[state=active]:bg-portfolio-accent data-[state=active]:text-white">Projects</TabsTrigger>
+            <TabsTrigger value="skills" className="text-white data-[state=active]:bg-portfolio-accent data-[state=active]:text-white">Skills</TabsTrigger>
+            <TabsTrigger value="services" className="text-white data-[state=active]:bg-portfolio-accent data-[state=active]:text-white">Services</TabsTrigger>
+            <TabsTrigger value="messages" className="text-white data-[state=active]:bg-portfolio-accent data-[state=active]:text-white">Messages</TabsTrigger>
+            <TabsTrigger value="settings" className="text-white data-[state=active]:bg-portfolio-accent data-[state=active]:text-white">Settings</TabsTrigger>
           </TabsList>
 
           <TabsContent value="projects">
