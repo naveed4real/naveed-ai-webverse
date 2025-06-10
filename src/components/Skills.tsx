@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Code, Layout, Brain, Terminal, Laptop } from 'lucide-react';
+import { Code, Layout, Brain } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Skill {
+  id: string;
   name: string;
   proficiency: number;
   category: string;
@@ -11,17 +13,29 @@ const Skills = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const skillBarsRef = useRef<NodeListOf<Element> | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [skills, setSkills] = useState<Skill[]>([]);
 
-  const skills: Skill[] = [
-    { name: "HTML", proficiency: 90, category: "Frontend" },
-    { name: "CSS", proficiency: 85, category: "Frontend" },
-    { name: "JavaScript", proficiency: 80, category: "Frontend" },
-    { name: "React", proficiency: 75, category: "Frontend" },
-    { name: "UI/UX Design", proficiency: 60, category: "Design" },
-    { name: "Python", proficiency: 82, category: "Backend" },
-    { name: "TypeScript", proficiency: 78, category: "Frontend" },
-    { name: "Responsive Design", proficiency: 85, category: "Frontend" }
-  ];
+  useEffect(() => {
+    fetchSkills();
+  }, []);
+
+  const fetchSkills = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('skills')
+        .select('*')
+        .order('category', { ascending: true });
+
+      if (error) {
+        console.error('Error fetching skills:', error);
+        return;
+      }
+
+      setSkills(data || []);
+    } catch (error) {
+      console.error('Error fetching skills:', error);
+    }
+  };
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -54,7 +68,7 @@ const Skills = () => {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, []);
+  }, [skills]);
 
   return (
     <section id="skills" ref={sectionRef} className="section-padding bg-portfolio-dark/50 relative overflow-hidden">
@@ -79,7 +93,7 @@ const Skills = () => {
               </h3>
               <div className="space-y-6 backdrop-blur-sm bg-white/5 p-6 rounded-xl border border-white/10">
                 {skills.map((skill, index) => (
-                  <div key={index} className="mb-4">
+                  <div key={skill.id} className="mb-4">
                     <div className="flex justify-between mb-2">
                       <span className="font-medium">{skill.name}</span>
                       <span className="text-sm text-portfolio-accent">{skill.proficiency}%</span>
@@ -130,7 +144,7 @@ const Skills = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-portfolio-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                   <div className="relative z-10">
                     <h4 className="text-xl font-semibold mb-2 flex items-center">
-                      <Terminal className="mr-2 text-portfolio-accent" size={18} />
+                      <Code className="mr-2 text-portfolio-accent" size={18} />
                       Backend Development
                     </h4>
                     <p className="text-gray-300">Creating robust server-side applications and APIs using Python and other technologies.</p>

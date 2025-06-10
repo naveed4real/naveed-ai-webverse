@@ -1,57 +1,53 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { Link, ExternalLink, Github, Folder } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Project {
-  id: number;
+  id: string;
   title: string;
   description: string;
-  image: string;
+  image_url: string;
   category: string;
   technologies: string[];
-  demoUrl?: string;
-  repoUrl?: string;
+  demo_url?: string;
+  repo_url?: string;
+  featured: boolean;
 }
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [categories, setCategories] = useState<string[]>(['all']);
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Real Estate Website",
-      description: "A modern real estate platform with property listings, search functionality, and user authentication.",
-      image: "/placeholder.svg",
-      category: "web",
-      technologies: ["React", "CSS", "Firebase"],
-      demoUrl: "#",
-      repoUrl: "#"
-    },
-    {
-      id: 2,
-      title: "Portfolio Design",
-      description: "A sleek, responsive portfolio template for professionals.",
-      image: "/placeholder.svg",
-      category: "design",
-      technologies: ["HTML", "CSS", "JavaScript"],
-      demoUrl: "#",
-      repoUrl: "#"
-    },
-    {
-      id: 3,
-      title: "AI Task Manager",
-      description: "Task management app with AI-powered prioritization and scheduling.",
-      image: "/placeholder.svg",
-      category: "ai",
-      technologies: ["React", "Node.js", "AI API"],
-      demoUrl: "#",
-      repoUrl: "#"
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('featured', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching projects:', error);
+        return;
+      }
+
+      const projectsData = data || [];
+      setProjects(projectsData);
+
+      // Extract unique categories
+      const uniqueCategories = ['all', ...new Set(projectsData.map(project => project.category).filter(Boolean))];
+      setCategories(uniqueCategories);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
     }
-  ];
-
-  const categories = ['all', 'web', 'design', 'ai'];
+  };
   
   const filteredProjects = activeCategory === 'all' 
     ? projects 
@@ -125,16 +121,16 @@ const Projects = () => {
               >
                 <div className="h-48 overflow-hidden relative">
                   <img 
-                    src={project.image} 
+                    src={project.image_url} 
                     alt={project.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-portfolio-dark/90 opacity-80"></div>
                   <div className="absolute inset-0 bg-portfolio-dark/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex gap-4">
-                      {project.demoUrl && (
+                      {project.demo_url && (
                         <a 
-                          href={project.demoUrl} 
+                          href={project.demo_url} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-portfolio-dark hover:bg-portfolio-accent hover:text-white transition-colors duration-300"
@@ -143,9 +139,9 @@ const Projects = () => {
                           <ExternalLink size={18} />
                         </a>
                       )}
-                      {project.repoUrl && (
+                      {project.repo_url && (
                         <a 
-                          href={project.repoUrl} 
+                          href={project.repo_url} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-portfolio-dark hover:bg-portfolio-accent hover:text-white transition-colors duration-300"
