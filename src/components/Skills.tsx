@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import { Code, Layout, Brain, Terminal, Laptop } from 'lucide-react';
 
@@ -18,8 +17,7 @@ const Skills = () => {
     { name: "CSS", proficiency: 85, category: "Frontend" },
     { name: "JavaScript", proficiency: 80, category: "Frontend" },
     { name: "React", proficiency: 75, category: "Frontend" },
-    { name: "UI/UX Design", proficiency: 70, category: "Design" },
-    { name: "AI Tools (Cursor, Trae)", proficiency: 85, category: "AI" },
+    { name: "UI/UX Design", proficiency: 60, category: "Design" },
     { name: "Python", proficiency: 82, category: "Backend" },
     { name: "TypeScript", proficiency: 78, category: "Frontend" },
     { name: "Responsive Design", proficiency: 85, category: "Frontend" }
