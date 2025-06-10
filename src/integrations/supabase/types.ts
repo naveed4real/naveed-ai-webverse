@@ -81,6 +81,7 @@ export type Database = {
           featured: boolean | null
           id: string
           image_url: string | null
+          linkedin_url: string | null
           repo_url: string | null
           status: string | null
           technologies: string[] | null
@@ -95,6 +96,7 @@ export type Database = {
           featured?: boolean | null
           id?: string
           image_url?: string | null
+          linkedin_url?: string | null
           repo_url?: string | null
           status?: string | null
           technologies?: string[] | null
@@ -109,6 +111,7 @@ export type Database = {
           featured?: boolean | null
           id?: string
           image_url?: string | null
+          linkedin_url?: string | null
           repo_url?: string | null
           status?: string | null
           technologies?: string[] | null
