@@ -155,12 +155,12 @@ const SkillsManager = ({ onUpdate }: SkillsManagerProps) => {
   }
 
   return (
-    <Card>
+    <Card className="bg-portfolio-dark border-white/10">
       <CardHeader>
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle>Skills Management</CardTitle>
-            <CardDescription>Manage your technical skills and proficiency levels</CardDescription>
+            <CardTitle className="text-white">Skills Management</CardTitle>
+            <CardDescription className="text-gray-300">Manage your technical skills and proficiency levels</CardDescription>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
@@ -229,12 +229,12 @@ const SkillsManager = ({ onUpdate }: SkillsManagerProps) => {
         <div className="space-y-6">
           {Object.entries(groupedSkills).map(([category, categorySkills]) => (
             <div key={category}>
-              <h3 className="text-lg font-semibold mb-3">{category}</h3>
+              <h3 className="text-lg font-semibold mb-3 text-white">{category}</h3>
               <div className="grid gap-3">
                 {categorySkills.map((skill) => (
-                  <div key={skill.id} className="border rounded-lg p-4">
+                  <div key={skill.id} className="border border-white/10 rounded-lg p-4 bg-white/5">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium">{skill.name}</span>
+                      <span className="font-medium text-white">{skill.name}</span>
                       <div className="flex gap-2">
                         <Button size="sm" variant="outline" onClick={() => handleEdit(skill)}>
                           <Edit className="w-4 h-4" />
@@ -246,7 +246,7 @@ const SkillsManager = ({ onUpdate }: SkillsManagerProps) => {
                     </div>
                     <div className="flex items-center gap-3">
                       <Progress value={skill.proficiency} className="flex-1" />
-                      <span className="text-sm font-medium">{skill.proficiency}%</span>
+                      <span className="text-sm font-medium text-white">{skill.proficiency}%</span>
                     </div>
                   </div>
                 ))}

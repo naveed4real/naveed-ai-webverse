@@ -167,12 +167,12 @@ const ServicesManager = ({ onUpdate }: ServicesManagerProps) => {
   }
 
   return (
-    <Card>
+    <Card className="bg-portfolio-dark border-white/10">
       <CardHeader>
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle>Services Management</CardTitle>
-            <CardDescription>Manage your service offerings</CardDescription>
+            <CardTitle className="text-white">Services Management</CardTitle>
+            <CardDescription className="text-gray-300">Manage your service offerings</CardDescription>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
@@ -247,15 +247,15 @@ const ServicesManager = ({ onUpdate }: ServicesManagerProps) => {
       <CardContent>
         <div className="grid gap-4">
           {services.map((service) => (
-            <div key={service.id} className="border rounded-lg p-4">
+            <div key={service.id} className="border border-white/10 rounded-lg p-4 bg-white/5">
               <div className="flex justify-between items-start">
                 <div className="flex items-start gap-3 flex-1">
                   <div className="text-portfolio-accent">
                     {getIconComponent(service.icon)}
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold">{service.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{service.description}</p>
+                    <h3 className="font-semibold text-white">{service.title}</h3>
+                    <p className="text-sm text-gray-300 mt-1">{service.description}</p>
                     <div className="mt-2">
                       <Badge variant={service.featured ? "default" : "outline"}>
                         {service.featured ? "Featured" : "Regular"}

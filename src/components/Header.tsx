@@ -45,15 +45,6 @@ const Header = () => {
               {item}
             </a>
           ))}
-          <a
-            href="/admin"
-            className="relative text-white hover:text-portfolio-accent transition-colors duration-300
-              after:content-[''] after:absolute after:left-0 after:bottom-[-5px]
-              after:h-[2px] after:w-0 after:bg-portfolio-accent after:transition-all after:duration-300
-              hover:after:w-full"
-          >
-            Admin
-          </a>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -80,13 +71,6 @@ const Header = () => {
                 {item}
               </a>
             ))}
-            <a
-              href="/admin"
-              className="text-white hover:text-portfolio-accent py-2 transition-colors duration-300"
-              onClick={() => setNavOpen(false)}
-            >
-              Admin
-            </a>
           </nav>
         </div>
       )}

@@ -153,12 +153,12 @@ const ContactManager = ({ onUpdate }: ContactManagerProps) => {
   }
 
   return (
-    <Card>
+    <Card className="bg-portfolio-dark border-white/10">
       <CardHeader>
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle>Contact Messages</CardTitle>
-            <CardDescription>Manage incoming contact form messages</CardDescription>
+            <CardTitle className="text-white">Contact Messages</CardTitle>
+            <CardDescription className="text-gray-300">Manage incoming contact form messages</CardDescription>
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-32">
@@ -176,11 +176,11 @@ const ContactManager = ({ onUpdate }: ContactManagerProps) => {
       <CardContent>
         <div className="space-y-4">
           {filteredMessages.map((message) => (
-            <div key={message.id} className="border rounded-lg p-4">
+            <div key={message.id} className="border border-white/10 rounded-lg p-4 bg-white/5">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-semibold">{message.name}</h3>
+                    <h3 className="font-semibold text-white">{message.name}</h3>
                     <Badge variant={getStatusColor(message.status)}>
                       {message.status}
                     </Badge>
@@ -188,10 +188,10 @@ const ContactManager = ({ onUpdate }: ContactManagerProps) => {
                       <Badge variant="outline">Replied</Badge>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-1">{message.email}</p>
-                  <p className="text-sm font-medium mb-2">{message.subject}</p>
-                  <p className="text-sm text-gray-700 line-clamp-2">{message.message}</p>
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-sm text-gray-300 mb-1">{message.email}</p>
+                  <p className="text-sm font-medium mb-2 text-white">{message.subject}</p>
+                  <p className="text-sm text-gray-300 line-clamp-2">{message.message}</p>
+                  <p className="text-xs text-gray-400 mt-2">
                     {new Date(message.created_at).toLocaleDateString()} at {new Date(message.created_at).toLocaleTimeString()}
                   </p>
                 </div>
