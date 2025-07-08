@@ -331,31 +331,36 @@ const ProjectsManager = ({ onUpdate }: ProjectsManagerProps) => {
                 </div>
                 <div className="flex gap-2">
                   {project.demo_url && (
-                    <Button size="sm" variant="outline" asChild className="border-white/20 text-white hover:bg-white/10">
-                      <a href={project.demo_url} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4" />
+                    <Button size="sm" variant="outline" asChild className="border-portfolio-accent/50 text-portfolio-accent hover:bg-portfolio-accent/10 hover:border-portfolio-accent">
+                      <a href={project.demo_url} target="_blank" rel="noopener noreferrer" title="View Demo">
+                        <ExternalLink className="w-4 h-4 mr-1" />
+                        Demo
                       </a>
                     </Button>
                   )}
                   {project.repo_url && (
-                    <Button size="sm" variant="outline" asChild className="border-white/20 text-white hover:bg-white/10">
-                      <a href={project.repo_url} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4" />
+                    <Button size="sm" variant="outline" asChild className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10 hover:border-blue-500">
+                      <a href={project.repo_url} target="_blank" rel="noopener noreferrer" title="View Repository">
+                        <Github className="w-4 h-4 mr-1" />
+                        Repo
                       </a>
                     </Button>
                   )}
                   {project.linkedin_url && (
-                    <Button size="sm" variant="outline" asChild className="border-white/20 text-white hover:bg-white/10">
-                      <a href={project.linkedin_url} target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="w-4 h-4" />
+                    <Button size="sm" variant="outline" asChild className="border-blue-600/50 text-blue-500 hover:bg-blue-600/10 hover:border-blue-600">
+                      <a href={project.linkedin_url} target="_blank" rel="noopener noreferrer" title="View LinkedIn">
+                        <Linkedin className="w-4 h-4 mr-1" />
+                        LinkedIn
                       </a>
                     </Button>
                   )}
-                  <Button size="sm" variant="outline" onClick={() => handleEdit(project)} className="border-white/20 text-white hover:bg-white/10">
-                    <Edit className="w-4 h-4" />
+                  <Button size="sm" variant="outline" onClick={() => handleEdit(project)} className="border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10 hover:border-yellow-500" title="Edit Project">
+                    <Edit className="w-4 h-4 mr-1" />
+                    Edit
                   </Button>
-                  <Button size="sm" variant="destructive" onClick={() => handleDelete(project.id)} className="bg-red-600 hover:bg-red-700">
-                    <Trash2 className="w-4 h-4" />
+                  <Button size="sm" variant="destructive" onClick={() => handleDelete(project.id)} className="bg-red-600 hover:bg-red-700 text-white" title="Delete Project">
+                    <Trash2 className="w-4 h-4 mr-1" />
+                    Delete
                   </Button>
                 </div>
               </div>

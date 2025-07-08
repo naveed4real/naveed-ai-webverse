@@ -112,6 +112,10 @@
   .glass-card {
     @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
   }
+  
+  .glass-input {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-white placeholder:text-gray-400;
+  }
 }
 
 /* Import Inter font */

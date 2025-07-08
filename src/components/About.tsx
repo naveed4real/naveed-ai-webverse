@@ -79,7 +79,7 @@ const About = () => {
               </h3>
               
               <p className="text-gray-300 mb-6 leading-relaxed backdrop-blur-sm bg-black/5 p-5 rounded-lg border border-white/5">
-                I'm a Computer Science student at Air University Aerospace & Aviation Campus, passionate about building websites and apps powered by AI. I constantly explore emerging tools like Cursor, Trae, and other AI-enhanced platforms to craft responsive, innovative digital experiences.
+                I'm a tech enthusiast who thrives on turning innovative ideas into intelligent digital solutions. With a strong foundation in Computer Science from Air University Aerospace & Aviation Campus, I specialize in building responsive websites and smart applications that blend clean design with powerful functionality. From developing seamless front-end interfaces to integrating AI-driven features, I'm passionate about creating experiences that are both impactful and future-ready. Let's bring your vision to life with precision and purpose.
               </p>
               
               <div className="mb-8">
@@ -99,7 +99,7 @@ const About = () => {
               
               <div className="flex flex-wrap gap-4">
                 <a 
-                  href="https://drive.google.com/file/d/16a_--yEtAJ-TQu1s380YlYkaQRL_Vo_R/view?usp=sharing" 
+                  href="https://drive.google.com/file/d/1-xgYxVSJuEOnw9u6GCL7L3gKsb_x0YIl/view" 
                   className="px-6 py-3 bg-portfolio-accent hover:bg-portfolio-accent/80 text-white rounded-md transition-all duration-300 shadow-lg shadow-portfolio-accent/20"
                   target="_blank"
                   rel="noopener noreferrer"
